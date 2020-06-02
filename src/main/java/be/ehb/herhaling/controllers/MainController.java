@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -27,6 +28,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/patient/new", method = RequestMethod.POST)
+    @ResponseBody
     public void newPatient(@RequestParam(name = "rnr")long rnr,
                           @RequestParam(name = "firstName") String firstName,
                           @RequestParam(name = "lastName") String lastname,
@@ -38,6 +40,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/appointment/new", method = RequestMethod.POST)
+    @ResponseBody
     public void newAppointment(@RequestParam(name = "rnr") long rnr,
                                @RequestParam(name="time") String timestamp){
         Optional<Patient> optionalPatient = patientDAO.findById(rnr);
@@ -52,6 +55,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/appointment/update", method = RequestMethod.PUT)
+    @ResponseBody
     public void updateAppointment(@RequestParam(name = "id") int id,
                                   @RequestParam(name = "rnr") long rnr,
                                   @RequestParam(name="timestamp") String timestamp){
@@ -67,6 +71,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/appointment/delete", method = RequestMethod.DELETE)
+    @ResponseBody
     public void deleteAppointment(@RequestParam(name = "id") int id){
         Optional<Appointment> optionalAppointment = appointmentDAO.findById(id);
 
