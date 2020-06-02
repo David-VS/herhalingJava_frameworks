@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
-@Component
+@Component //this is now a bean
 public class DiceLogic {
 
     public int rollD6(){
