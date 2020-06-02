@@ -9,5 +9,9 @@
     <div th:each="dice : ${yahtzee}">
         <p th:text="${dice}"></p>
     </div>
+
+    <form>
+        <button th:href="@{index}">Roll</button>
+    </form>
 </body>
 </html>
