@@ -6,10 +6,7 @@ import be.ehb.herhaling.entities.Appointment;
 import be.ehb.herhaling.entities.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,13 +15,19 @@ import java.util.Optional;
 @Controller
 public class MainController {
 
-    private PatientDAO patientDAO;
-    private AppointmentDAO appointmentDAO;
+    private final PatientDAO patientDAO;
+    private final AppointmentDAO appointmentDAO;
 
     @Autowired
     public MainController(PatientDAO patientDAO, AppointmentDAO appointmentDAO) {
         this.patientDAO = patientDAO;
         this.appointmentDAO = appointmentDAO;
+    }
+
+    @GetMapping("/patient/all")
+    @ResponseBody
+    public Iterable<Patient> allPatients(){
+        return patientDAO.findAll();
     }
 
     @RequestMapping(value = "/patient/new", method = RequestMethod.POST)
@@ -75,6 +78,8 @@ public class MainController {
     public void deleteAppointment(@RequestParam(name = "id") int id){
         Optional<Appointment> optionalAppointment = appointmentDAO.findById(id);
 
-        optionalAppointment.ifPresent(appointment -> appointmentDAO.delete(appointment));
+        //of lambda i.d.p.v. method reference
+        //appointment -> appointmentDAO.delete(appointment)
+        optionalAppointment.ifPresent(appointmentDAO::delete);
     }
 }

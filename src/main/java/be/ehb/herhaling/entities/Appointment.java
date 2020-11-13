@@ -1,9 +1,12 @@
 package be.ehb.herhaling.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@JsonIgnoreProperties("patient")
 public class Appointment {
 
     @Id

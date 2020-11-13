@@ -14,11 +14,6 @@ public class diceController {
     @Autowired //injection, needs to be a bean
     private DiceLogic diceLogic;
 
-    @ModelAttribute("yahtzee")//voor alle requests beschikbaar
-    public int[] yahtzee(){
-        return diceLogic.rollYahtzee();
-    }
-
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String openIndex(ModelMap map){
         map.addAttribute("yahtzee", diceLogic.rollYahtzee());//enkel binnen deze request beschikbaar
